@@ -1,0 +1,88 @@
+﻿AppType=JavaFX
+Build1=Default,b4j.adashboard
+File1=icon.png
+File2=LeftDrawer.bjl
+File3=MainPanel.bjl
+File4=PanelCenter.bjl
+File5=PanelMini.bjl
+File6=PanelStatic.bjl
+FileGroup1=Assets\icons
+FileGroup2=App
+FileGroup3=App
+FileGroup4=App
+FileGroup5=App
+FileGroup6=App
+Group=Default Group
+Library1=b4xpages
+Library2=cssutils
+Library3=jcore
+Library4=jfx
+Library5=jsql
+Library6=xui views
+Library7=b4xdrawer
+Module1=|relative|..\B4XMainPage
+NumberOfFiles=6
+NumberOfLibraries=7
+NumberOfModules=1
+Version=10
+@EndOfDesignText@
+' Name		: A B4X Dashboard App (B4XPages project template)
+' Version	: 0.001
+#Region Project Attributes 
+	#MainFormWidth: -1
+	#MainFormHeight: -1 
+#End Region
+#Region Package Property
+	#PackagerProperty: ExeName = Dashboard
+#End Region
+#Region Additional Jars
+	#AdditionalJar: sqlite-jdbc-3.45.2.0
+#End Region
+Sub Process_Globals
+	Public DB 			As SQL
+	Private FX 			As JFX
+	Private MainForm 	As Form
+	Public DataFolder 	As String
+	Public DataFile 	As String = "Data.db"
+End Sub
+
+Sub AppStart (Form1 As Form, Args() As String)
+	MainForm = Form1
+	'MainForm.Show
+	'MainForm.SetFormStyle("TRANSPARENT")
+	MainForm.SetFormStyle("UNDECORATED")
+	
+	MainForm.WindowLeft = 0
+	MainForm.WindowTop = 0
+	MainForm.WindowWidth = FX.PrimaryScreen.MaxX - FX.PrimaryScreen.MinX
+	MainForm.WindowHeight = FX.PrimaryScreen.MaxY - FX.PrimaryScreen.MinY
+	MainForm.BackColor = FX.Colors.ARGB(0, 128, 128, 128)
+	MainForm.Icon = FX.LoadImage(File.DirAssets, "icon.png")
+	CSSUtils.SetBackgroundColor(MainForm.RootPane, FX.Colors.Transparent)
+	
+	Dim PagesManager As B4XPagesManager
+	PagesManager.Initialize(MainForm)
+End Sub
+
+'Template version: B4J-1.0
+#Region Delegates
+Sub MainForm_FocusChanged (HasFocus As Boolean)
+	B4XPages.Delegate.MainForm_FocusChanged(HasFocus)
+End Sub
+
+Sub MainForm_Resize (Width As Double, Height As Double)
+	B4XPages.Delegate.MainForm_Resize(Width, Height)
+End Sub
+
+Sub MainForm_Closed
+	B4XPages.Delegate.MainForm_Closed
+End Sub
+
+Sub MainForm_CloseRequest (EventData As Event)
+	B4XPages.Delegate.MainForm_CloseRequest(EventData)
+End Sub
+
+Public Sub MainForm_IconifiedChanged (Iconified As Boolean)
+	B4XPages.Delegate.MainForm_IconifiedChanged(Iconified)
+End Sub
+#End Region
