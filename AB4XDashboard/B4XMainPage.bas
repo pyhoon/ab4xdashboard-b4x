@@ -5,7 +5,7 @@ Type=Class
 Version=9.85
 @EndOfDesignText@
 #Region Shared Files
-#CustomBuildAction: folders ready, %WINDIR%\System32\Robocopy.exe,"..\..\Shared Files" "..\Files"
+'#CustomBuildAction: folders ready, %WINDIR%\System32\Robocopy.exe,"..\..\Shared Files" "..\Files"
 'Ctrl + click to sync files: ide://run?file=%WINDIR%\System32\Robocopy.exe&args=..\..\Shared+Files&args=..\Files&FilesSync=True
 #End Region
 
@@ -14,7 +14,9 @@ Version=9.85
 Sub Class_Globals
 	Private XUI 			As XUI
 	Private Root 			As B4XView
+	Private mBase 			As B4XView
 	Private Drawer 			As B4XDrawer
+	Private LblTitle 		As Label
 	Private lblAppVersion 	As Label
 	Private BtnMenu 		As Label
 	Private BtnHide 		As Label
@@ -31,11 +33,10 @@ Sub Class_Globals
 	#If B4J
 	Private FX 				As JFX
 	#End If
-	'Private Title 		As String = "Aeric's B4X Dashboard"
-	Private Title 		As String = "AB4XDashboard"
-	Private MenuMode	As String = "Mini"
+	Private Title 			As String = "AB4XDashboard"
+	Private MenuMode		As String = "Mini"
 	'Private
-	Private lblMiniLabel As B4XView
+	Private lblMiniLabel 	As B4XView
 End Sub
 
 Public Sub Initialize
@@ -53,8 +54,7 @@ Private Sub B4XPage_Created (Root1 As B4XView)
 	SetButtonMousePointer
 	#End If
 	CSSUtils.SetStyleProperty(BtnExit, "-fx-focus-color", "white")
-	CSSUtils.SetStyleProperty(Button1, "-fx-focus-color", "white")
-	lblAppVersion.Text = $"A B4X Dashboard${CRLF}   Version ${Main.Version}"$
+	'CSSUtils.SetStyleProperty(Button1, "-fx-focus-color", "white")
 End Sub
 
 Private Sub B4XPage_Resize (Width As Int, Height As Int)
@@ -73,6 +73,7 @@ Sub InitDrawer
 	Drawer.Initialize(Me, "Drawer", Root, 300dip)
 	Drawer.LeftPanel.LoadLayout("LeftDrawer")
 	Drawer.CenterPanel.LoadLayout("MainPanel")
+	lblAppVersion.Text = $"A B4X Dashboard${CRLF}   Version ${Main.Version}"$
 End Sub
 
 Sub InitPanel
@@ -90,9 +91,12 @@ Sub InitPanel
 	lblAppVersion.Text = $"${Title}${CRLF}Version ${Main.Version}"$
 	#End If
 	#If B4J
+	LblTitle.Text = Title
 	PnlMini.LoadLayout("PanelMini")
 	PnlStatic.LoadLayout("PanelStatic")
-	PnlCenter.LoadLayout("PanelCenter")
+	PnlCenter.LoadLayout("Dashboard")
+	lblAppVersion.Text = $"A B4X Dashboard${CRLF}   Version ${Main.Version}"$
+	CSSUtils.SetStyleProperty(Button1, "-fx-focus-color", "white")
 	Select MenuMode
 		Case "Mini"
 			PnlMini.Visible = True
@@ -110,7 +114,6 @@ Sub InitPanel
 			PnlCenter.Width = PnlRoot.Width
 			PnlCenter.Left = 0
 	End Select
-	'PnlCenter.LoadLayout("PanelCenter")
 	#End If
 	'BtnExit.Visible = False	' If MainForm.FormStyle = "UNDECORATED"
 	CallSubDelayed3(Me, "SetScrollPaneBackgroundColor", ClvMenuMini, XUI.Color_Transparent)
@@ -130,6 +133,7 @@ Sub BtnMenu_Click
 			Drawer.LeftOpen = Not(Drawer.LeftOpen)
 	End Select
 End Sub
+
 Sub ACToolBarLight1_NavigationItemClick
 	Drawer.LeftOpen = Not(Drawer.LeftOpen)
 End Sub
@@ -140,6 +144,7 @@ Private Sub BtnHide_MouseClicked (EventData As MouseEvent)
 	PnlStatic.Visible = False
 	PnlCenter.Width = Root.Width
 	PnlCenter.Left = 0
+	ClvMenuStatic_ItemClick(0, Me)
 End Sub
 
 Private Sub BtnShow_MouseClicked (EventData As MouseEvent)
@@ -149,6 +154,7 @@ Private Sub BtnShow_MouseClicked (EventData As MouseEvent)
 	PnlStatic.Visible = True
 	PnlCenter.Width = Root.Width - PnlStatic.Width
 	PnlCenter.Left = PnlStatic.Left + PnlStatic.Width
+	ClvMenuStatic_ItemClick(0, Me)
 End Sub
 
 Sub Drawer_StateChanged (Open As Boolean)
@@ -159,53 +165,18 @@ Sub Drawer_StateChanged (Open As Boolean)
 	End If
 End Sub
 
-Private Sub ContentEmpty As Boolean
-	Return PnlCenter.NumberOfViews = 0
+Private Sub Show (Parent As B4XView)
+	If mBase.IsInitialized = False Then
+		mBase = XUI.CreatePanel("")
+		mBase.LoadLayout("Dashboard")
+	End If
+	mBase.RemoveViewFromParent
+	Parent.AddView(mBase, 0, 0, Parent.Width, Parent.Height)
+	CSSUtils.SetStyleProperty(Button1, "-fx-focus-color", "white")
 End Sub
 
-Private Sub ClvMenuDrawer_ItemClick (Index As Int, Value As Object)
-	Drawer.LeftOpen = False
-	If ContentEmpty = False Then PnlCenter.GetView(0).RemoveViewFromParent
-	CallSub2(Value, "Show", PnlCenter)
-'	Select Value
-'		Case "Form1"
-'
-'		Case "Form2"
-'
-'		Case "Login"
-'			'B4XPages.ShowPage("UserLogin")
-'		Case "Logout"
-'			Dim Txt As String = "You will need to log in again." & CRLF & _
-'			"Are you sure you want to log out ?"
-'			XUI.Msgbox2Async(Txt, "A T T E N T I O N", "Yes", "", "No", Null)
-'			Wait For Msgbox_Result (Answ As Int)
-'			If Answ = XUI.DialogResponse_Positive Then
-'				'Main.gUser = ""
-'				'lblCount.Text = "0"
-'				'If B4XPages.MainPage.PageUserLogin.lblMessage1.IsInitialized Then
-'				'	B4XPages.MainPage.PageUserLogin.ShowLabelMessage("Enter your Email and Password")
-'				'End If
-'				ShowLoginMenu
-'			End If
-'		Case "Register"
-'			'B4XPages.ShowPage("UserRegister")
-'		Case "Reset Password"
-'			'B4XPages.ShowPage("UserPasswordReset")
-'		Case "Change Password"
-'			'B4XPages.ShowPage("UserPasswordChange")
-'		Case "Delete Account"
-'			'B4XPages.ShowPage("UserDelete")
-'		Case "Help"
-'			If ClvMenuDrawer.GetPanel(ClvMenuDrawer.Size-2).GetView(0).Text = "Show Help" Then
-'				ClvMenuDrawer.GetPanel(ClvMenuDrawer.Size-2).GetView(0).Text = "Hide Help"
-'			Else
-'				ClvMenuDrawer.GetPanel(ClvMenuDrawer.Size-2).GetView(0).Text = "Show Help"
-'			End If
-'		Case "About"
-'			'B4XPages.ShowPage("MainAbout")
-'		Case Else
-'			LogColor(Value, XUI.Color_Red)
-'	End Select
+Private Sub ContentEmpty As Boolean
+	Return PnlCenter.NumberOfViews = 0
 End Sub
 
 Private Sub ClvMenuStatic_ItemClick (Index As Int, Value As Object)
@@ -214,8 +185,12 @@ Private Sub ClvMenuStatic_ItemClick (Index As Int, Value As Object)
 End Sub
 
 Private Sub ClvMenuMini_ItemClick (Index As Int, Value As Object)
-	If ContentEmpty = False Then PnlCenter.GetView(0).RemoveViewFromParent
-	CallSub2(Value, "Show", PnlCenter)
+	ClvMenuStatic_ItemClick(Index, Value)
+End Sub
+
+Private Sub ClvMenuDrawer_ItemClick (Index As Int, Value As Object)
+	Drawer.LeftOpen = False
+	ClvMenuStatic_ItemClick(Index, Value)
 End Sub
 
 Sub SwitchMenu
@@ -233,6 +208,7 @@ Sub SwitchMenu
 			PnlCenter.Width = Root.Width - PnlMini.Width
 			PnlCenter.Left = PnlMini.Left + PnlMini.Width
 	End Select
+	ClvMenuStatic_ItemClick(0, Me)
 End Sub
 
 Public Sub ShowLoginMenu
@@ -241,23 +217,17 @@ Public Sub ShowLoginMenu
 	Dim frm2 As Form2
 	frm1.Initialize
 	frm2.Initialize
+	ClvMenuDrawer.AddTextItem("Dashboard", Me)
 	ClvMenuDrawer.AddTextItem("Form1", frm1)
 	ClvMenuDrawer.AddTextItem("Form2", frm2)
-	'ClvMenuDrawer.AddTextItem("Login", "Login")
-	'ClvMenuDrawer.AddTextItem("Register", "Register")
-	'ClvMenuDrawer.AddTextItem("Reset Password", "Reset Password")
-	'ClvMenuDrawer.AddTextItem("Show Help", "Help")
-	'ClvMenuDrawer.AddTextItem("About", "About")
-	'lblMenuEmail.Text = ""
-	'lblMenuUserName.Text = $"Hello"$
 	
+	ClvMenuStatic.AddTextItem("Dashboard", Me)
 	ClvMenuStatic.AddTextItem("Form1", frm1)
 	ClvMenuStatic.AddTextItem("Form2", frm2)
 	
+	ClvMenuMini.Add(CreateMiniItem(Chr(0xF015), ClvMenuMini.AsView.Width), Me)
 	ClvMenuMini.Add(CreateMiniItem(Chr(0xF004), ClvMenuMini.AsView.Width), frm1)
 	ClvMenuMini.Add(CreateMiniItem(Chr(0xF06B), ClvMenuMini.AsView.Width), frm2)
-	'ClvMenuMini.AddTextItem("F1", frm1)
-	'ClvMenuMini.AddTextItem("F2", frm2)
 End Sub
 
 Sub CreateMiniItem (Text As String, Width As Int) As B4XView
@@ -270,15 +240,6 @@ Sub CreateMiniItem (Text As String, Width As Int) As B4XView
 	pnl.As(Pane).MouseCursor = FX.Cursors.HAND
 	#End If
 	Return pnl
-End Sub
-
-Public Sub ShowLogoutMenu
-	ClvMenuDrawer.Clear
-	ClvMenuDrawer.AddTextItem("Logout", "Logout")
-	ClvMenuDrawer.AddTextItem("Change Password", "Change Password")
-	ClvMenuDrawer.AddTextItem("Delete Account", "Delete Account")
-	ClvMenuDrawer.AddTextItem("Show Help", "Help")
-	ClvMenuDrawer.AddTextItem("About", "About")
 End Sub
 
 #If B4J

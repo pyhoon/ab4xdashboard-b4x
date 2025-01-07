@@ -1,18 +1,18 @@
 ﻿AppType=JavaFX
 Build1=Default,b4j.adashboard
-File1=Form1.bjl
-File2=Form2.bjl
-File3=icon.png
-File4=LeftDrawer.bjl
-File5=MainPanel.bjl
-File6=MiniItem.bjl
-File7=PanelCenter.bjl
+File1=Dashboard.bjl
+File2=Form1.bjl
+File3=Form2.bjl
+File4=icon.png
+File5=LeftDrawer.bjl
+File6=MainPanel.bjl
+File7=MiniItem.bjl
 File8=PanelMini.bjl
 File9=PanelStatic.bjl
 FileGroup1=Layouts\Forms
 FileGroup2=Layouts\Forms
-FileGroup3=Assets\icons
-FileGroup4=Layouts
+FileGroup3=Layouts\Forms
+FileGroup4=Assets\icons
 FileGroup5=Layouts
 FileGroup6=Layouts
 FileGroup7=Layouts
@@ -52,7 +52,7 @@ Sub Process_Globals
 	Public DB 			As SQL
 	Public DataFolder 	As String
 	Public DataFile 	As String = "Data.db"
-	Public Version 		As String = "0.002"
+	Public Version 		As String = "0.003"
 End Sub
 
 Sub AppStart (MainForm1 As Form, Args() As String)
