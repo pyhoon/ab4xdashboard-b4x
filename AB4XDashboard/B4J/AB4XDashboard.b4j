@@ -1,17 +1,23 @@
 ﻿AppType=JavaFX
 Build1=Default,b4j.adashboard
-File1=icon.png
-File2=LeftDrawer.bjl
-File3=MainPanel.bjl
-File4=PanelCenter.bjl
-File5=PanelMini.bjl
-File6=PanelStatic.bjl
-FileGroup1=Assets\icons
-FileGroup2=App
-FileGroup3=App
-FileGroup4=App
-FileGroup5=App
-FileGroup6=App
+File1=Form1.bjl
+File2=Form2.bjl
+File3=icon.png
+File4=LeftDrawer.bjl
+File5=MainPanel.bjl
+File6=MiniItem.bjl
+File7=PanelCenter.bjl
+File8=PanelMini.bjl
+File9=PanelStatic.bjl
+FileGroup1=Layouts\Forms
+FileGroup2=Layouts\Forms
+FileGroup3=Assets\icons
+FileGroup4=Layouts
+FileGroup5=Layouts
+FileGroup6=Layouts
+FileGroup7=Layouts
+FileGroup8=Layouts
+FileGroup9=Layouts
 Group=Default Group
 Library1=b4xpages
 Library2=cssutils
@@ -21,13 +27,15 @@ Library5=jsql
 Library6=xui views
 Library7=b4xdrawer
 Module1=|relative|..\B4XMainPage
-NumberOfFiles=6
+Module2=|relative|..\Form1
+Module3=|relative|..\Form2
+NumberOfFiles=9
 NumberOfLibraries=7
-NumberOfModules=1
+NumberOfModules=3
 Version=10
 @EndOfDesignText@
 ' Name		: A B4X Dashboard App (B4XPages project template)
-' Version	: 0.001
+' Version	: 0.002
 #Region Project Attributes 
 	#MainFormWidth: -1
 	#MainFormHeight: -1 
@@ -36,18 +44,19 @@ Version=10
 	#PackagerProperty: ExeName = Dashboard
 #End Region
 #Region Additional Jars
-	#AdditionalJar: sqlite-jdbc-3.45.2.0
+	#AdditionalJar: sqlite-jdbc-3.39.3.0
 #End Region
 Sub Process_Globals
-	Public DB 			As SQL
 	Private FX 			As JFX
 	Private MainForm 	As Form
+	Public DB 			As SQL
 	Public DataFolder 	As String
 	Public DataFile 	As String = "Data.db"
+	Public Version 		As String = "0.002"
 End Sub
 
-Sub AppStart (Form1 As Form, Args() As String)
-	MainForm = Form1
+Sub AppStart (MainForm1 As Form, Args() As String)
+	MainForm = MainForm1
 	'MainForm.Show
 	'MainForm.SetFormStyle("TRANSPARENT")
 	MainForm.SetFormStyle("UNDECORATED")
