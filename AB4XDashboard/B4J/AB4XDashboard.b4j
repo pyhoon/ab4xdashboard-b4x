@@ -19,23 +19,22 @@ FileGroup7=Layouts
 FileGroup8=Layouts
 FileGroup9=Layouts
 Group=Default Group
-Library1=b4xpages
-Library2=cssutils
-Library3=jcore
-Library4=jfx
-Library5=jsql
+Library1=b4xdrawer
+Library2=b4xpages
+Library3=cssutils
+Library4=jcore
+Library5=jfx
 Library6=xui views
-Library7=b4xdrawer
 Module1=|relative|..\B4XMainPage
 Module2=|relative|..\Form1
 Module3=|relative|..\Form2
 NumberOfFiles=9
-NumberOfLibraries=7
+NumberOfLibraries=6
 NumberOfModules=3
 Version=10
 @EndOfDesignText@
 ' Name		: A B4X Dashboard App (B4XPages project template)
-' Version	: 0.002
+' Version	: 0.003
 #Region Project Attributes 
 	#MainFormWidth: -1
 	#MainFormHeight: -1 
@@ -44,14 +43,14 @@ Version=10
 	#PackagerProperty: ExeName = Dashboard
 #End Region
 #Region Additional Jars
-	#AdditionalJar: sqlite-jdbc-3.39.3.0
+'	#AdditionalJar: sqlite-jdbc-3.39.3.0
 #End Region
 Sub Process_Globals
 	Private FX 			As JFX
 	Private MainForm 	As Form
-	Public DB 			As SQL
-	Public DataFolder 	As String
-	Public DataFile 	As String = "Data.db"
+	'Public DB 			As SQL
+	'Public DataFolder 	As String
+	'Public DataFile 	As String = "Data.db"
 	Public Version 		As String = "0.003"
 End Sub
 
