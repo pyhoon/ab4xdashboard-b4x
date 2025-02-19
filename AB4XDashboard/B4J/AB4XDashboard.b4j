@@ -34,7 +34,7 @@ NumberOfModules=3
 Version=10
 @EndOfDesignText@
 ' Name		: A B4X Dashboard App (B4XPages project template)
-' Version	: 0.003
+' Version	: 0.004
 #Region Project Attributes 
 	#MainFormWidth: -1
 	#MainFormHeight: -1 
@@ -51,15 +51,13 @@ Sub Process_Globals
 	'Public DB 			As SQL
 	'Public DataFolder 	As String
 	'Public DataFile 	As String = "Data.db"
-	Public Version 		As String = "0.003"
+	Public Version 		As String = "0.004"
 End Sub
 
 Sub AppStart (MainForm1 As Form, Args() As String)
 	MainForm = MainForm1
-	'MainForm.Show
 	'MainForm.SetFormStyle("TRANSPARENT")
 	MainForm.SetFormStyle("UNDECORATED")
-	
 	MainForm.WindowLeft = 0
 	MainForm.WindowTop = 0
 	MainForm.WindowWidth = FX.PrimaryScreen.MaxX - FX.PrimaryScreen.MinX
@@ -67,6 +65,7 @@ Sub AppStart (MainForm1 As Form, Args() As String)
 	MainForm.BackColor = FX.Colors.ARGB(0, 128, 128, 128)
 	MainForm.Icon = FX.LoadImage(File.DirAssets, "icon.png")
 	CSSUtils.SetBackgroundColor(MainForm.RootPane, FX.Colors.Transparent)
+	MainForm.Show
 	
 	Dim PagesManager As B4XPagesManager
 	PagesManager.Initialize(MainForm)
