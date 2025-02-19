@@ -30,6 +30,7 @@ Sub Class_Globals
 	Private ClvMenuMini 	As CustomListView
 	Private ClvMenuStatic 	As CustomListView
 	Private ClvMenuDrawer 	As CustomListView
+	Private CurrentObject	As Object
 	#If B4J
 	Private FX 				As JFX
 	#End If
@@ -144,7 +145,7 @@ Private Sub BtnHide_MouseClicked (EventData As MouseEvent)
 	PnlStatic.Visible = False
 	PnlCenter.Width = Root.Width
 	PnlCenter.Left = 0
-	ClvMenuStatic_ItemClick(0, Me)
+	LoadPage(CurrentObject)
 End Sub
 
 Private Sub BtnShow_MouseClicked (EventData As MouseEvent)
@@ -154,7 +155,7 @@ Private Sub BtnShow_MouseClicked (EventData As MouseEvent)
 	PnlStatic.Visible = True
 	PnlCenter.Width = Root.Width - PnlStatic.Width
 	PnlCenter.Left = PnlStatic.Left + PnlStatic.Width
-	ClvMenuStatic_ItemClick(0, Me)
+	LoadPage(CurrentObject)
 End Sub
 
 Sub Drawer_StateChanged (Open As Boolean)
@@ -179,18 +180,23 @@ Private Sub ContentEmpty As Boolean
 	Return PnlCenter.NumberOfViews = 0
 End Sub
 
-Private Sub ClvMenuStatic_ItemClick (Index As Int, Value As Object)
+Private Sub LoadPage (Value As Object)
 	If ContentEmpty = False Then PnlCenter.GetView(0).RemoveViewFromParent
 	CallSub2(Value, "Show", PnlCenter)
+	CurrentObject = Value
+End Sub
+
+Private Sub ClvMenuStatic_ItemClick (Index As Int, Value As Object)
+	LoadPage(Value)
 End Sub
 
 Private Sub ClvMenuMini_ItemClick (Index As Int, Value As Object)
-	ClvMenuStatic_ItemClick(Index, Value)
+	LoadPage(Value)
 End Sub
 
 Private Sub ClvMenuDrawer_ItemClick (Index As Int, Value As Object)
 	Drawer.LeftOpen = False
-	ClvMenuStatic_ItemClick(Index, Value)
+	LoadPage(Value)
 End Sub
 
 Sub SwitchMenu
@@ -208,7 +214,7 @@ Sub SwitchMenu
 			PnlCenter.Width = Root.Width - PnlMini.Width
 			PnlCenter.Left = PnlMini.Left + PnlMini.Width
 	End Select
-	ClvMenuStatic_ItemClick(0, Me)
+	LoadPage(CurrentObject)
 End Sub
 
 Public Sub ShowLoginMenu
