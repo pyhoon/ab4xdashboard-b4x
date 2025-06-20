@@ -1,21 +1,21 @@
 ﻿AppType=JavaFX
 Build1=Default,b4j.adashboard
 File1=Dashboard.bjl
-File2=Form1.bjl
-File3=Form2.bjl
-File4=icon.png
-File5=LeftDrawer.bjl
-File6=MainPanel.bjl
-File7=MiniItem.bjl
+File2=icon.png
+File3=LeftDrawer.bjl
+File4=MainPanel.bjl
+File5=MiniItem.bjl
+File6=Page1.bjl
+File7=Page2.bjl
 File8=PanelMini.bjl
 File9=PanelStatic.bjl
 FileGroup1=Layouts\Forms
-FileGroup2=Layouts\Forms
-FileGroup3=Layouts\Forms
-FileGroup4=Assets\icons
+FileGroup2=Assets\icons
+FileGroup3=Layouts
+FileGroup4=Layouts
 FileGroup5=Layouts
-FileGroup6=Layouts
-FileGroup7=Layouts
+FileGroup6=Layouts\Forms
+FileGroup7=Layouts\Forms
 FileGroup8=Layouts
 FileGroup9=Layouts
 Group=Default Group
@@ -26,15 +26,15 @@ Library4=jcore
 Library5=jfx
 Library6=xui views
 Module1=|relative|..\B4XMainPage
-Module2=|relative|..\Form1
-Module3=|relative|..\Form2
+Module2=|relative|..\Page1
+Module3=|relative|..\Page2
 NumberOfFiles=9
 NumberOfLibraries=6
 NumberOfModules=3
-Version=10
+Version=10.2
 @EndOfDesignText@
-' Name		: A B4X Dashboard App (B4XPages project template)
-' Version	: 0.004
+' Name		: A B4X Dashboard (B4XPages project template)
+' Version	: 0.05
 #Region Project Attributes 
 	#MainFormWidth: -1
 	#MainFormHeight: -1 
@@ -51,7 +51,7 @@ Sub Process_Globals
 	'Public DB 			As SQL
 	'Public DataFolder 	As String
 	'Public DataFile 	As String = "Data.db"
-	Public Version 		As String = "0.004"
+	Public Version 		As String = "0.05"
 End Sub
 
 Sub AppStart (MainForm1 As Form, Args() As String)

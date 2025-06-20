@@ -35,7 +35,7 @@ Sub Class_Globals
 	Private ClvMenuStatic 	As CustomListView
 	Private ClvMenuDrawer 	As CustomListView
 	Private CurrentObject	As Object
-	Private Title 			As String = "AB4XDashboard"
+	Private Title 			As String = "Dashboard"
 	Private MenuMode		As String = "Static"
 End Sub
 
@@ -53,8 +53,8 @@ Private Sub B4XPage_Created (Root1 As B4XView)
 	CurrentObject = Me
 	#If B4J
 	SetButtonMousePointer
-	CSSUtils.SetStyleProperty(BtnExit, "-fx-focus-color", "white")
-	CSSUtils.SetStyleProperty(Button1, "-fx-focus-color", "white")
+	CSSUtils.SetStyleProperty(BtnExit, "-fx-focus-color", "black")
+	CSSUtils.SetStyleProperty(Button1, "-fx-focus-color", "slateblue")
 	#End If
 End Sub
 
@@ -69,11 +69,17 @@ Sub SetTitle
 	B4XPages.SetTitle(Me, Title)
 End Sub
 
+Sub RotateNode (n As Node, Degree As Double)
+	Dim jo As JavaObject = n
+	jo.RunMethod("setRotate", Array(Degree))
+End Sub
+
 Sub InitDrawer
 	Drawer.Initialize(Me, "Drawer", Root, 300dip)
 	Drawer.LeftPanel.LoadLayout("LeftDrawer")
 	Drawer.CenterPanel.LoadLayout("MainPanel")
 	lblAppVersion1.Text = $"A B4X Dashboard${CRLF}   Version ${Main.Version}"$
+	RotateNode(BtnShow, 45)
 End Sub
 
 Sub InitPanel
@@ -111,21 +117,21 @@ End Sub
 
 Public Sub InitMenu
 	ClvMenuDrawer.Clear
-	Dim frm1 As Form1
-	Dim frm2 As Form2
-	frm1.Initialize
-	frm2.Initialize
+	Dim P1 As Page1
+	Dim P2 As Page2
+	P1.Initialize
+	P2.Initialize
 	ClvMenuDrawer.AddTextItem("Dashboard", Me)
-	ClvMenuDrawer.AddTextItem("Form1", frm1)
-	ClvMenuDrawer.AddTextItem("Form2", frm2)
+	ClvMenuDrawer.AddTextItem("Page1", P1)
+	ClvMenuDrawer.AddTextItem("Page2", P2)
 	
 	ClvMenuStatic.AddTextItem("Dashboard", Me)
-	ClvMenuStatic.AddTextItem("Form1", frm1)
-	ClvMenuStatic.AddTextItem("Form2", frm2)
+	ClvMenuStatic.AddTextItem("Page1", P1)
+	ClvMenuStatic.AddTextItem("Page2", P2)
 	
 	ClvMenuMini.Add(CreateMiniItem(Chr(0xF015), ClvMenuMini.AsView.Width), Me)
-	ClvMenuMini.Add(CreateMiniItem(Chr(0xF004), ClvMenuMini.AsView.Width), frm1)
-	ClvMenuMini.Add(CreateMiniItem(Chr(0xF06B), ClvMenuMini.AsView.Width), frm2)
+	ClvMenuMini.Add(CreateMiniItem(Chr(0xF004), ClvMenuMini.AsView.Width), P1)
+	ClvMenuMini.Add(CreateMiniItem(Chr(0xF06B), ClvMenuMini.AsView.Width), P2)
 End Sub
 
 #If B4J
