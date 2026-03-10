@@ -271,7 +271,7 @@ Private Sub ClvMenuMini_ItemClick (Index As Int, Value As Object)
 End Sub
 
 Private Sub ClvMenuStatic_ItemClick (Index As Int, Value As Object)
-	Log(Value)
+	'Log(Value)
 	LoadPage(Value)
 	'NavigateTo(Value)
 	'ShowPage(Value)
