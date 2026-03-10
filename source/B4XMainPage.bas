@@ -13,9 +13,9 @@ Version=9.85
 
 Sub Class_Globals
 	#If B4J
-	Private FX 				As JFX
+	Private fx 				As JFX
 	#End If	
-	Private XUI 			As XUI
+	Private xui 			As XUI
 	Private Root 			As B4XView
 	Public mBase 			As B4XView
 	Private Drawer 			As B4XDrawer
@@ -27,14 +27,16 @@ Sub Class_Globals
 	Private BtnHide 		As Label
 	Private BtnShow 		As Label
 	Private BtnExit 		As Button
-	Private Button1 		As Button
+	'Private Button1 		As Button
 	Private PnlMini 		As B4XView
 	Private PnlStatic 		As B4XView
-	Private PnlCenter 		As B4XView
+	Public PnlCenter 		As B4XView
 	Private ClvMenuMini 	As CustomListView
 	Private ClvMenuStatic 	As CustomListView
 	Private ClvMenuDrawer 	As CustomListView
 	Private CurrentObject	As Object
+	Private P1 				As Page1
+	Private P2 				As Page2
 	Private Title 			As String = "Dashboard"
 	Private MenuMode		As String = "Static"
 End Sub
@@ -45,16 +47,18 @@ End Sub
 
 Private Sub B4XPage_Created (Root1 As B4XView)
 	Root = Root1
+	'Root.LoadLayout("MainPanel")
 	SetTitle
 	InitDrawer
 	InitPanel
 	InitMenu
 	Show(PnlCenter)
+	'ShowPage(mBase)
 	CurrentObject = Me
 	#If B4J
 	SetButtonMousePointer
 	CSSUtils.SetStyleProperty(BtnExit, "-fx-focus-color", "black")
-	CSSUtils.SetStyleProperty(Button1, "-fx-focus-color", "slateblue")
+	'CSSUtils.SetStyleProperty(Button1, "-fx-focus-color", "slateblue")
 	#End If
 End Sub
 
@@ -65,42 +69,49 @@ Private Sub B4XPage_Resize (Width As Int, Height As Int)
 	End If
 End Sub
 
+'Public Sub NavigateTo (PageID As String)
+'	Dim pg As Object = B4XPages.GetPage(PageID)
+'	LoadPage(pg)
+'End Sub
+
+Private Sub LoadPage (Instance As Object)
+	'PnlCenter.RemoveAllViews
+	If ContentEmpty = False Then PnlCenter.GetView(0).RemoveViewFromParent
+	CallSub2(Instance, "Show", PnlCenter)
+End Sub
+
 Sub SetTitle
 	B4XPages.SetTitle(Me, Title)
 End Sub
 
-Sub RotateNode (n As Node, Degree As Double)
-	Dim jo As JavaObject = n
+#If B4A
+Sub RotateNode (v As View, Degree As Float)
+	Dim jo As JavaObject = v
+	jo.RunMethod("setRotation", Array(Degree))
+End Sub
+#Else
+Sub RotateNode (v As Node, Degree As Double)
+	Dim jo As JavaObject = v
 	jo.RunMethod("setRotate", Array(Degree))
 End Sub
+#End If
 
 Sub InitDrawer
 	Drawer.Initialize(Me, "Drawer", Root, 300dip)
 	Drawer.LeftPanel.LoadLayout("LeftDrawer")
 	Drawer.CenterPanel.LoadLayout("MainPanel")
+	#If B4A
+	PnlCenter.LoadLayout("Dashboard")
+	#End If
 	lblAppVersion1.Text = $"A B4X Dashboard${CRLF}   Version ${Main.Version}"$
 	RotateNode(BtnShow, 45)
 End Sub
 
-Sub InitPanel
-	#If B4A
-	ToolbarHelper.Initialize
-	ToolbarHelper.ShowUpIndicator = True 'set to true to show the up arrow
-	lblAppVersion.Text = $"${Title}${CRLF}Version ${Application.VersionName}"$
-	
-	Dim bd As BitmapDrawable
-	bd.Initialize(LoadBitmap(File.DirAssets, "img_hamburger.png"))
-	ToolbarHelper.UpIndicatorDrawable =  bd
-	ACToolBarLight1.InitMenuListener
-	#End If
-	#If B4i
-	lblAppVersion.Text = $"${Title}${CRLF}Version ${Main.Version}"$
-	#End If
-	#If B4J
+Sub InitPanel	
 	LblTitle.Text = Title
 	PnlMini.LoadLayout("PanelMini")
 	PnlStatic.LoadLayout("PanelStatic")
-	lblAppVersion2.Text = $"A B4X Dashboard${CRLF}   Version ${Main.Version}"$
+	lblAppVersion2.Text = $"${Title}${CRLF}Version ${Main.Version}"$
 	Select MenuMode
 		Case "Mini"
 			ModeMini
@@ -109,14 +120,16 @@ Sub InitPanel
 		Case Else
 			ModeDrawer
 	End Select
+	#If B4J
+	CallSubDelayed3(Me, "SetScrollPaneBackgroundColor", ClvMenuMini, xui.Color_Transparent)
+	CallSubDelayed3(Me, "SetScrollPaneBackgroundColor", ClvMenuStatic, xui.Color_Transparent)
+	CallSubDelayed3(Me, "SetScrollPaneBackgroundColor", ClvMenuDrawer, xui.Color_Transparent)
 	#End If
-	CallSubDelayed3(Me, "SetScrollPaneBackgroundColor", ClvMenuMini, XUI.Color_Transparent)
-	CallSubDelayed3(Me, "SetScrollPaneBackgroundColor", ClvMenuStatic, XUI.Color_Transparent)
-	CallSubDelayed3(Me, "SetScrollPaneBackgroundColor", ClvMenuDrawer, XUI.Color_Transparent)
 End Sub
 
 Public Sub InitMenu
 	ClvMenuDrawer.Clear
+	'#If B4J
 	Dim P1 As Page1
 	Dim P2 As Page2
 	P1.Initialize
@@ -132,6 +145,36 @@ Public Sub InitMenu
 	ClvMenuMini.Add(CreateMiniItem(Chr(0xF015), ClvMenuMini.AsView.Width), Me)
 	ClvMenuMini.Add(CreateMiniItem(Chr(0xF004), ClvMenuMini.AsView.Width), P1)
 	ClvMenuMini.Add(CreateMiniItem(Chr(0xF06B), ClvMenuMini.AsView.Width), P2)
+	'#Else
+	'B4XPages.AddPage("P1", P1.Initialize)
+	'B4XPages.AddPage("P2", P2.Initialize)
+	'B4XPages.AddPageAndCreate("P1", P1.Initialize)
+	'B4XPages.AddPageAndCreate("P2", P2.Initialize)
+	'#End If
+	'If mBase.IsInitialized = False Then
+	'	mBase = xui.CreatePanel("")
+	'	mBase.LoadLayout("Dashboard")
+	'End If
+	'If P1.mBase.IsInitialized = False Then
+	'	P1.mBase = xui.CreatePanel("")
+	'	P1.mBase.LoadLayout("Page1")
+	'End If
+	'If P2.mBase.IsInitialized = False Then
+	'	P2.mBase = xui.CreatePanel("")
+	'	P2.mBase.LoadLayout("Page2")
+	'End If
+	
+'	ClvMenuDrawer.AddTextItem("Dashboard", "mainpage")
+'	ClvMenuDrawer.AddTextItem("Page1", "p1")
+'	ClvMenuDrawer.AddTextItem("Page2", "p2")
+'	
+'	ClvMenuStatic.AddTextItem("Dashboard", "mainpage")
+'	ClvMenuStatic.AddTextItem("Page1", "p1")
+'	ClvMenuStatic.AddTextItem("Page2", "p2")
+'	
+'	ClvMenuMini.Add(CreateMiniItem(Chr(0xF015), ClvMenuMini.AsView.Width), "mainpage")
+'	ClvMenuMini.Add(CreateMiniItem(Chr(0xF004), ClvMenuMini.AsView.Width), "p1")
+'	ClvMenuMini.Add(CreateMiniItem(Chr(0xF06B), ClvMenuMini.AsView.Width), "p2")
 End Sub
 
 #If B4J
@@ -148,26 +191,34 @@ Sub BtnMenu_Click
 			Drawer.LeftOpen = Not(Drawer.LeftOpen)
 			Return
 	End Select
+	'LoadPage(Me)
 	LoadPage(CurrentObject)
-End Sub
-
-Sub ACToolBarLight1_NavigationItemClick
-	Drawer.LeftOpen = Not(Drawer.LeftOpen)
+	'ShowPage(mBase)
 End Sub
 
 Private Sub BtnExit_Click
 	ExitApplication
 End Sub
 
+#If B4J
 Private Sub BtnHide_MouseClicked (EventData As MouseEvent)
+#Else
+Private Sub BtnHide_Click
+#End If
 	ModeDrawer
 	LoadPage(CurrentObject)
+	'ShowPage(mBase)
 End Sub
 
+#If B4J
 Private Sub BtnShow_MouseClicked (EventData As MouseEvent)
+#Else
+Private Sub BtnShow_Click
+#End If
 	Drawer.LeftOpen = False
 	ModeStatic
 	LoadPage(CurrentObject)
+	'ShowPage(mBase)
 End Sub
 
 Sub Drawer_StateChanged (Open As Boolean)
@@ -182,19 +233,37 @@ Private Sub ContentEmpty As Boolean
 	Return PnlCenter.NumberOfViews = 0
 End Sub
 
-Private Sub LoadPage (Value As Object)
-	If ContentEmpty = False Then PnlCenter.GetView(0).RemoveViewFromParent
-	CallSub2(Value, "Show", PnlCenter)
-	CurrentObject = Value
-End Sub
+'Private Sub LoadPage (Value As Object)
+'	#If B4J
+'	If ContentEmpty = False Then PnlCenter.GetView(0).RemoveViewFromParent
+'	CallSub2(Value, "Show", PnlCenter)
+'	#Else
+'	'Dim PageId As String = B4XPages.GetPageId(Value)
+'	'Log(PageId)
+'	'B4XPages.ShowPage(PageId)
+'	Show
+'	#End If
+'	CurrentObject = Value
+'End Sub
+
+'Public Sub Show (Parent As B4XView)
+'	If mBase.IsInitialized = False Then
+'		mBase = xui.CreatePanel("")
+'		mBase.LoadLayout("Dashboard")
+'	End If
+'	mBase.RemoveViewFromParent
+'	Parent.AddView(mBase, 0, 0, Parent.Width, Parent.Height)
+'End Sub
 
 Public Sub Show (Parent As B4XView)
 	If mBase.IsInitialized = False Then
-		mBase = XUI.CreatePanel("")
+		mBase = xui.CreatePanel("")
 		mBase.LoadLayout("Dashboard")
 	End If
 	mBase.RemoveViewFromParent
 	Parent.AddView(mBase, 0, 0, Parent.Width, Parent.Height)
+	'PnlCenter.RemoveViewFromParent
+	'Parent.AddView(PnlCenter, 0, 0, Parent.Width, Parent.Height)
 End Sub
 
 Private Sub ClvMenuMini_ItemClick (Index As Int, Value As Object)
@@ -202,12 +271,16 @@ Private Sub ClvMenuMini_ItemClick (Index As Int, Value As Object)
 End Sub
 
 Private Sub ClvMenuStatic_ItemClick (Index As Int, Value As Object)
+	Log(Value)
 	LoadPage(Value)
+	'NavigateTo(Value)
+	'ShowPage(Value)
 End Sub
 
 Private Sub ClvDrawer_ItemClick (Index As Int, Value As Object)
 	Drawer.LeftOpen = False
 	LoadPage(Value)
+	'ShowPage(Value)
 End Sub
 
 Private Sub ModeMini
@@ -235,12 +308,12 @@ Private Sub ModeDrawer
 End Sub
 
 Sub CreateMiniItem (Text As String, Width As Int) As B4XView
-	Dim pnl As B4XView = XUI.CreatePanel("")
+	Dim pnl As B4XView = xui.CreatePanel("")
 	pnl.SetLayoutAnimated(0, 0, 0, Width, 60dip)
 	pnl.LoadLayout("MiniItem")
 	LblMiniLabel.Text = Text
 	#If B4J
-	pnl.As(Pane).MouseCursor = FX.Cursors.HAND
+	pnl.As(Pane).MouseCursor = fx.Cursors.HAND
 	#End If
 	Return pnl
 End Sub
@@ -256,10 +329,10 @@ Private Sub SetScrollPaneBackgroundColor (View As CustomListView, Color As Int)
 End Sub
 
 Private Sub SetButtonMousePointer
-	BtnMenu.MouseCursor = FX.Cursors.HAND
-	BtnExit.MouseCursor = FX.Cursors.HAND
-	BtnHide.MouseCursor = FX.Cursors.HAND
-	BtnShow.MouseCursor = FX.Cursors.HAND
-	Button1.MouseCursor = FX.Cursors.HAND
+	BtnMenu.MouseCursor = fx.Cursors.HAND
+	BtnExit.MouseCursor = fx.Cursors.HAND
+	BtnHide.MouseCursor = fx.Cursors.HAND
+	BtnShow.MouseCursor = fx.Cursors.HAND
+	'Button1.MouseCursor = FX.Cursors.HAND
 End Sub
 #End If

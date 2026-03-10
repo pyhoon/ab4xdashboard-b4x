@@ -31,10 +31,10 @@ Module3=|relative|..\Page2
 NumberOfFiles=9
 NumberOfLibraries=6
 NumberOfModules=3
-Version=10.2
+Version=10.45
 @EndOfDesignText@
 ' Name		: A B4X Dashboard (B4XPages project template)
-' Version	: 0.05
+' Version	: 0.50
 #Region Project Attributes 
 	#MainFormWidth: -1
 	#MainFormHeight: -1 
@@ -46,12 +46,12 @@ Version=10.2
 '	#AdditionalJar: sqlite-jdbc-3.39.3.0
 #End Region
 Sub Process_Globals
-	Private FX 			As JFX
+	Private fx 			As JFX
 	Private MainForm 	As Form
 	'Public DB 			As SQL
 	'Public DataFolder 	As String
 	'Public DataFile 	As String = "Data.db"
-	Public Version 		As String = "0.05"
+	Public Version 		As String = "0.50"
 End Sub
 
 Sub AppStart (MainForm1 As Form, Args() As String)
@@ -60,11 +60,11 @@ Sub AppStart (MainForm1 As Form, Args() As String)
 	MainForm.SetFormStyle("UNDECORATED")
 	MainForm.WindowLeft = 0
 	MainForm.WindowTop = 0
-	MainForm.WindowWidth = FX.PrimaryScreen.MaxX - FX.PrimaryScreen.MinX
-	MainForm.WindowHeight = FX.PrimaryScreen.MaxY - FX.PrimaryScreen.MinY
-	MainForm.BackColor = FX.Colors.ARGB(0, 128, 128, 128)
-	MainForm.Icon = FX.LoadImage(File.DirAssets, "icon.png")
-	CSSUtils.SetBackgroundColor(MainForm.RootPane, FX.Colors.Transparent)
+	MainForm.WindowWidth = fx.PrimaryScreen.MaxX - fx.PrimaryScreen.MinX
+	MainForm.WindowHeight = fx.PrimaryScreen.MaxY - fx.PrimaryScreen.MinY
+	MainForm.BackColor = fx.Colors.ARGB(0, 128, 128, 128)
+	MainForm.Icon = fx.LoadImage(File.DirAssets, "icon.png")
+	CSSUtils.SetBackgroundColor(MainForm.RootPane, fx.Colors.Transparent)
 	MainForm.Show
 	
 	Dim PagesManager As B4XPagesManager

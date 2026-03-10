@@ -1,42 +1,64 @@
-﻿Build1=Default,b4a.example
-File1=MainPage.bal
-FileGroup1=Default Group
+﻿Build1=Default,b4a.dashboard
+File1=Dashboard.bal
+File2=LeftDrawer.bal
+File3=MainPanel.bal
+File4=MiniItem.bal
+File5=Page1.bal
+File6=Page2.bal
+File7=PanelMini.bal
+File8=PanelStatic.bal
+FileGroup1=Layouts\Forms
+FileGroup2=Layouts
+FileGroup3=Layouts
+FileGroup4=Layouts
+FileGroup5=Layouts\Forms
+FileGroup6=Layouts\Forms
+FileGroup7=Layouts
+FileGroup8=Layouts
 Group=Default Group
-Library1=core
+Library1=b4xdrawer
 Library2=b4xpages
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="33"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Library3=core
+Library4=xui views
+Library5=javaobject
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="35"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.
 Module1=|relative|..\B4XMainPage
-Module2=Starter
-NumberOfFiles=1
-NumberOfLibraries=2
-NumberOfModules=2
-Version=9.9
+Module2=|relative|..\Page1
+Module3=|relative|..\Page2
+Module4=Starter
+NumberOfFiles=8
+NumberOfLibraries=5
+NumberOfModules=4
+Version=13.4
 @EndOfDesignText@
 #Region  Project Attributes 
-	#ApplicationLabel: B4A Example
-	#VersionCode: 1
-	#VersionName: 
+	#ApplicationLabel: Dashboard
+	#VersionCode: 0
+	#VersionName: 0.05
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: False
 #End Region
 
 #Region  Activity Attributes 
-	#FullScreen: False
-	#IncludeTitle: True
+	#FullScreen: True
+	#IncludeTitle: False
 #End Region
-
 '#BridgeLogger: True
 
 Sub Process_Globals
 	Public ActionBarHomeClicked As Boolean
+	'Public DB 			As SQL
+	'Public DataFolder 	As String
+	'Public DataFile 	As String = "Data.db"
+	Public Version 		As String = "0.05"
 End Sub
 
 Sub Globals
 
 End Sub
 
-Sub Activity_Create(FirstTime As Boolean)
+Sub Activity_Create (FirstTime As Boolean)
 	Dim pm As B4XPagesManager
 	pm.Initialize(Activity)
 End Sub
@@ -51,7 +73,11 @@ Sub Activity_ActionBarHomeClick
 End Sub
 
 Sub Activity_KeyPress (KeyCode As Int) As Boolean
-	Return B4XPages.Delegate.Activity_KeyPress(KeyCode)
+	If KeyCode = KeyCodes.KEYCODE_BACK Then
+		Return B4XPages.Delegate.Activity_KeyPress(KeyCode)
+	End If
+	B4XPages.GetManager.RaiseEvent(B4XPages.GetManager.GetTopPage, "B4XPage_KeyPress", Array(KeyCode))
+	Return False
 End Sub
 
 Sub Activity_Resume
@@ -74,9 +100,6 @@ End Sub
 public boolean _onCreateOptionsMenu(android.view.Menu menu) {
 	 processBA.raiseEvent(null, "create_menu", menu);
 	 return true;
-	
 }
 #End If
 #End Region
-
-'Program code should go into B4XMainPage and other pages.

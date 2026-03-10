@@ -31,10 +31,10 @@ Module3=|relative|..\Page2
 NumberOfFiles=9
 NumberOfLibraries=6
 NumberOfModules=3
-Version=10.2
+Version=10.45
 @EndOfDesignText@
 ' Name		: A B4X Dashboard (B4XPages project template)
-' Version	: 0.05
+' Version	: 0.50
 #Region Project Attributes 
 	#MainFormWidth: -1
 	#MainFormHeight: -1 
@@ -51,7 +51,7 @@ Sub Process_Globals
 	'Public DB 			As SQL
 	'Public DataFolder 	As String
 	'Public DataFile 	As String = "Data.db"
-	Public Version 		As String = "0.05"
+	Public Version 		As String = "0.50"
 End Sub
 
 Sub AppStart (MainForm1 As Form, Args() As String)
