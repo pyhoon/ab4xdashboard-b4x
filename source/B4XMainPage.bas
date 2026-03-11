@@ -22,9 +22,9 @@ Sub Class_Globals
 	Private lblAppVersion1 	As Label
 	Private lblAppVersion2 	As Label
 	Private LblMiniLabel 	As Label
-	Private BtnMenu 		As Label
-	Private BtnHide 		As Label
-	Private BtnShow 		As Label
+	Private BtnMenu 		As B4XView
+	Private BtnHide 		As B4XView
+	Private BtnShow 		As B4XView
 	Private BtnExit 		As Button
 	Private Button1 		As Button
 	Private PnlRoot 		As B4XView
@@ -68,21 +68,12 @@ Sub SetTitle
 	B4XPages.SetTitle(Me, Title)
 End Sub
 
-#If B4J
-Sub RotateNode (n As Node, Degree As Double)
-	Dim jo As JavaObject = n
-	jo.RunMethod("setRotate", Array(Degree))
-End Sub
-#End If
-
 Sub InitDrawer
 	Drawer.Initialize(Me, "Drawer", Root, 300dip)
 	Drawer.LeftPanel.LoadLayout("LeftDrawer")
 	Drawer.CenterPanel.LoadLayout("MainPanel")
 	lblAppVersion1.Text = $"A B4X Dashboard${CRLF}   Version ${Main.Version}"$
-	#If B4J
-	RotateNode(BtnShow, 45)
-	#End If
+	BtnShow.Rotation = 45
 End Sub
 
 Sub InitPanel
