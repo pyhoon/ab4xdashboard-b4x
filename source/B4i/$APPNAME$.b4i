@@ -1,18 +1,36 @@
-﻿Build1=Default,b4i.example
-File1=MainPage.bil
-FileGroup1=Default Group
+﻿Build1=Default,b4i.dashboard
+File1=Dashboard.bil
+File2=LeftDrawer.bil
+File3=MainPanel.bil
+File4=MiniItem.bil
+File5=Page1.bil
+File6=Page2.bil
+File7=PanelMini.bil
+File8=PanelStatic.bil
+FileGroup1=Layouts\Forms
+FileGroup2=Layouts
+FileGroup3=Layouts
+FileGroup4=Layouts
+FileGroup5=Layouts\Forms
+FileGroup6=Layouts\Forms
+FileGroup7=Layouts
+FileGroup8=Layouts
 Group=Default Group
-Library1=icore
+Library1=b4xdrawer
 Library2=b4xpages
+Library3=icore
+Library4=xui views
 Module1=|relative|..\B4XMainPage
-NumberOfFiles=1
-NumberOfLibraries=2
-NumberOfModules=1
-Version=6.5
+Module2=|relative|..\Page1
+Module3=|relative|..\Page2
+NumberOfFiles=8
+NumberOfLibraries=4
+NumberOfModules=3
+Version=8.8
 @EndOfDesignText@
 'Code module
 #Region  Project Attributes 
-	#ApplicationLabel: B4i Example
+	#ApplicationLabel: Dashboard
 	#Version: 1.0.0 
 	'Orientation possible values: Portrait, LandscapeLeft, LandscapeRight and PortraitUpsideDown
 	#iPhoneOrientations: Portrait, LandscapeLeft, LandscapeRight
@@ -25,7 +43,7 @@ Version=6.5
 Sub Process_Globals
 	Public App As Application
 	Public NavControl As NavigationController
-
+	Public Version As String = "0.60"
 End Sub
 
 Private Sub Application_Start (Nav As NavigationController)

@@ -9,32 +9,25 @@ Sub Class_Globals
 	Private fx As JFX
 	#End If
 	Private xui As XUI
-	'Private Root As B4XView
-	Public mBase As B4XView
+	Private Root As B4XView
+	Private mBase As B4XView
 	Private Label1 As B4XView
 End Sub
 
-Public Sub Initialize As Object
-	Return Me
+'Initializes the object. You can add parameters to this method if needed.
+Public Sub Initialize
+	
 End Sub
 
-'Private Sub B4XPage_Created (Root1 As B4XView)
-'	'Root = Root1
-'	If mBase.IsInitialized = False Then
-'		'mBase = Root1
-'		mBase = xui.CreatePanel("")
-'		mBase.LoadLayout("Page1")
-'		Label1.Text = "Page 1"
-'	End If
-'End Sub
-
 Public Sub Show (Parent As B4XView)
-	If mBase.IsInitialized = False Then
-		'mBase = Root1
+	If NotInitialized(mBase) Then
+		Root = B4XPages.MainPage.Root
 		mBase = xui.CreatePanel("")
+		Parent.AddView(mBase, 0, 0, Root.Width, Root.Height)
 		mBase.LoadLayout("Page1")
 		Label1.Text = "Page 1"
-	End If	
-    mBase.RemoveViewFromParent
-    Parent.AddView(mBase, 0, 0, Parent.Width, Parent.Height)
+	Else
+		mBase.RemoveViewFromParent
+		Parent.AddView(mBase, 0, 0, Root.Width, Root.Height)
+	End If
 End Sub

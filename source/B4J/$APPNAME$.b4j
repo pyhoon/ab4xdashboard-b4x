@@ -33,12 +33,15 @@ NumberOfLibraries=6
 NumberOfModules=3
 Version=10.45
 @EndOfDesignText@
-' Name		: A B4X Dashboard (B4XPages project template)
-' Version	: 0.50
-#Region Project Attributes 
-	#MainFormWidth: -1
-	#MainFormHeight: -1 
+#Region Project Attributes
+' Product: A B4X Dashboard (B4XPages project template)
+' Version: 0.60
+' License: MIT License
+' Developer: Poon Yip Hoon (Aeric)
+#MainFormWidth: -1
+#MainFormHeight: -1
 #End Region
+
 #Region Package Property
 	#PackagerProperty: ExeName = Dashboard
 #End Region
@@ -51,7 +54,7 @@ Sub Process_Globals
 	'Public DB 			As SQL
 	'Public DataFolder 	As String
 	'Public DataFile 	As String = "Data.db"
-	Public Version 		As String = "0.50"
+	Public Version 		As String = "0.60"
 End Sub
 
 Sub AppStart (MainForm1 As Form, Args() As String)
