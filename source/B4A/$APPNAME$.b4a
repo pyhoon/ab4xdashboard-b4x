@@ -31,10 +31,14 @@ NumberOfLibraries=5
 NumberOfModules=4
 Version=13.4
 @EndOfDesignText@
-#Region  Project Attributes 
+#Region  Project Attributes
+	' Name: A B4X Dashboard (B4XPages project template)
+	' Version: 0.63
+	' License: MIT License
+	' Developer: Poon Yip Hoon (Aeric)
 	#ApplicationLabel: Dashboard
 	#VersionCode: 1
-	#VersionName: 0.60
+	#VersionName: 0.63
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: landscape
 	#CanInstallToExternalStorage: False
@@ -49,7 +53,7 @@ Version=13.4
 
 Sub Process_Globals
 	Public ActionBarHomeClicked As Boolean
-	Public Version As String = "0.60"
+	Public Version As String = "0.63"
 End Sub
 
 Sub Globals

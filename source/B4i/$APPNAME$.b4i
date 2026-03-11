@@ -28,8 +28,11 @@ NumberOfLibraries=4
 NumberOfModules=3
 Version=8.8
 @EndOfDesignText@
-'Code module
-#Region  Project Attributes 
+#Region  Project Attributes
+	' Name: A B4X Dashboard (B4XPages project template)
+	' Version: 0.63
+	' License: MIT License
+	' Developer: Poon Yip Hoon (Aeric)
 	#ApplicationLabel: Dashboard
 	#Version: 1.0.0 
 	'Orientation possible values: Portrait, LandscapeLeft, LandscapeRight and PortraitUpsideDown
@@ -43,7 +46,7 @@ Version=8.8
 Sub Process_Globals
 	Public App As Application
 	Public NavControl As NavigationController
-	Public Version As String = "0.60"
+	Public Version As String = "0.63"
 End Sub
 
 Private Sub Application_Start (Nav As NavigationController)

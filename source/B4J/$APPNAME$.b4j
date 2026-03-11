@@ -31,22 +31,22 @@ Module3=|relative|..\Page2
 NumberOfFiles=9
 NumberOfLibraries=6
 NumberOfModules=3
-Version=10.45
+Version=10.5
 @EndOfDesignText@
 #Region Project Attributes
-' Product: A B4X Dashboard (B4XPages project template)
-' Version: 0.60
-' License: MIT License
-' Developer: Poon Yip Hoon (Aeric)
-#MainFormWidth: -1
-#MainFormHeight: -1
+	' Name: A B4X Dashboard (B4XPages project template)
+	' Version: 0.63
+	' License: MIT License
+	' Developer: Poon Yip Hoon (Aeric)
+	#MainFormWidth: -1
+	#MainFormHeight: -1
 #End Region
 
 #Region Package Property
 	#PackagerProperty: ExeName = Dashboard
 #End Region
 #Region Additional Jars
-'	#AdditionalJar: sqlite-jdbc-3.39.3.0
+'	#AdditionalJar: sqlite-jdbc-3.7.2
 #End Region
 Sub Process_Globals
 	Private fx 			As JFX
@@ -54,7 +54,7 @@ Sub Process_Globals
 	'Public DB 			As SQL
 	'Public DataFolder 	As String
 	'Public DataFile 	As String = "Data.db"
-	Public Version 		As String = "0.60"
+	Public Version 		As String = "0.63"
 End Sub
 
 Sub AppStart (MainForm1 As Form, Args() As String)
