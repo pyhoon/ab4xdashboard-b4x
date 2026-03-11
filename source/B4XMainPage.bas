@@ -254,10 +254,10 @@ Private Sub SetScrollPaneBackgroundColor (View As CustomListView, Color As Int)
 End Sub
 
 Private Sub SetButtonMousePointer
-	BtnMenu.MouseCursor = fx.Cursors.HAND
+	BtnMenu.As(Label).MouseCursor = fx.Cursors.HAND
+	BtnHide.As(Label).MouseCursor = fx.Cursors.HAND
+	BtnShow.As(Label).MouseCursor = fx.Cursors.HAND
 	BtnExit.MouseCursor = fx.Cursors.HAND
-	BtnHide.MouseCursor = fx.Cursors.HAND
-	BtnShow.MouseCursor = fx.Cursors.HAND
 	Button1.MouseCursor = fx.Cursors.HAND
 End Sub
 #End If
