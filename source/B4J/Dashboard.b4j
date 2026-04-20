@@ -35,24 +35,24 @@ Version=10.5
 @EndOfDesignText@
 #Region Project Attributes
 	' Name: A B4X Dashboard (B4XPages project template)
-	' Version: 0.63
+	' Version: 0.70
 	' License: MIT License
 	' Developer: Poon Yip Hoon (Aeric)
 	#MainFormWidth: -1
 	#MainFormHeight: -1
 #End Region
 #Region Macros
-	'For source
-	'1 - Copy to $APPNAME$.b4j
-	'2 - Open $APPNAME$.b4j -> Remove all macros
-	'3 - Create Dashboard.b4xtemplate
-	'4 - Copy to B4X Additional Libraries folder
-	'5 - Check Release folder
-	#Macro: Title, Copy AppName, ide://run?file=%COMSPEC%&args=/c&args=copy&args=%PROJECT%\Dashboard.b4j&args=%PROJECT%\$APPNAME$.b4j
-	#Macro: Title, Open AppName, ide://run?File=%WINDIR%\explorer.exe&Args=%PROJECT%\$APPNAME$.b4j
-	#Macro: Title, Create Template, ide://run?file=%JAVABIN%\jar.exe&WorkingDirectory=..&args=-cMf&args=%PROJECT%\..\..\release\Dashboard.b4xtemplate&args=..\Shared+Files&args=..\*.bas&args=..\B4J\Files&args=..\B4J\$APPNAME$.b4j*&args=..\B4J\LICENSE&args=..\B4A\Files&args=..\B4A\$APPNAME$.b4a*&args=..\B4A\LICENSE&args=..\B4A\Starter.bas&args=..\B4A\Objects\res\drawable\icon.png&args=..\B4i\Files&args=..\B4i\$APPNAME$.b4i*&args=..\B4i\LICENSE
-	#Macro: Title, Copy to AddLibs, ide://run?file=%COMSPEC%&args=/c&args=copy&args=%PROJECT%\..\..\release\*.b4xtemplate&args=%ADDITIONAL%\..\B4X
-	#Macro: Title, Release Folder, ide://run?file=%WINDIR%\SysWOW64\explorer.exe&args=%PROJECT%\..\..\release
+'For source
+'1 - Copy to $APPNAME$.b4j
+'2 - Open $APPNAME$.b4j -> Remove all macros in Main
+'3 - Create Dashboard.b4xtemplate
+'4 - Copy to B4X Additional Libraries folder
+'5 - Check Release folder
+#Macro: Title, Copy AppName, ide://run?file=%COMSPEC%&args=/c&args=copy&args=%PROJECT%\Dashboard.b4j&args=%PROJECT%\$APPNAME$.b4j
+#Macro: Title, Open AppName, ide://run?File=%WINDIR%\explorer.exe&Args=%PROJECT%\$APPNAME$.b4j
+#Macro: Title, Create Template, ide://run?file=%JAVABIN%\jar.exe&WorkingDirectory=..&args=-cMf&args=%PROJECT%\..\..\release\Dashboard.b4xtemplate&args=..\Shared+Files&args=..\*.bas&args=..\B4J\Files&args=..\B4J\$APPNAME$.b4j*&args=..\B4J\LICENSE&args=..\B4A\Files&args=..\B4A\$APPNAME$.b4a*&args=..\B4A\LICENSE&args=..\B4A\Starter.bas&args=..\B4A\Objects\res\drawable\icon.png&args=..\B4i\Files&args=..\B4i\$APPNAME$.b4i*&args=..\B4i\LICENSE
+#Macro: Title, Copy to AddLibs, ide://run?file=%COMSPEC%&args=/c&args=copy&args=%PROJECT%\..\..\release\*.b4xtemplate&args=%ADDITIONAL%\..\B4X
+#Macro: Title, Release Folder, ide://run?file=%WINDIR%\SysWOW64\explorer.exe&args=%PROJECT%\..\..\release
 #End Region
 #Region Package Property
 	#PackagerProperty: ExeName = Dashboard
@@ -66,7 +66,7 @@ Sub Process_Globals
 	'Public DB 			As SQL
 	'Public DataFolder 	As String
 	'Public DataFile 	As String = "Data.db"
-	Public Version 		As String = "0.63"
+	Public Version 		As String = "0.70"
 End Sub
 
 Sub AppStart (MainForm1 As Form, Args() As String)

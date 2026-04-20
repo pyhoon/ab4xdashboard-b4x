@@ -25,9 +25,9 @@ Public Sub Show (Parent As B4XView)
 		mBase = xui.CreatePanel("")
 		Parent.AddView(mBase, 0, 0, Root.Width, Root.Height)
 		mBase.LoadLayout("Page2")
+		Label2.Text = "Page 2"
 	Else
 		mBase.RemoveViewFromParent
 		Parent.AddView(mBase, 0, 0, Root.Width, Root.Height)
 	End If
-	Label2.Text = "Page 2"
 End Sub

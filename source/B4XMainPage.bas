@@ -6,15 +6,16 @@ Version=9.85
 @EndOfDesignText@
 #Region Shared Files
 #CustomBuildAction: folders ready, %WINDIR%\System32\Robocopy.exe,"..\..\Shared Files" "..\Files"
+#End Region
 #Macro: Title, Sync files, ide://run?file=%WINDIR%\System32\Robocopy.exe&args=..\..\Shared+Files&args=..\Files&FilesSync=True
 #Macro: Title, Export as zip, ide://run?File=%B4X%\Zipper.jar&Args=%PROJECT_NAME%.zip
-#End Region
-
 Sub Class_Globals
 	#If B4J
 	Private fx 				As JFX
 	#End If	
 	Private xui 			As XUI
+	Public P1 				As Page1
+	Public P2 				As Page2
 	Public Root 			As B4XView
 	Private mBase 			As B4XView
 	Private Drawer 			As B4XDrawer
@@ -55,13 +56,12 @@ Private Sub B4XPage_Created (Root1 As B4XView)
 	CSSUtils.SetStyleProperty(BtnExit, "-fx-focus-color", "black")
 	CSSUtils.SetStyleProperty(Button1, "-fx-focus-color", "slateblue")
 	#End If
+	P1.Initialize
+	P2.Initialize
 End Sub
 
 Private Sub B4XPage_Resize (Width As Int, Height As Int)
 	If Drawer.IsInitialized Then Drawer.Resize(Width, Height)
-	'If ContentEmpty = False Then
-	'	PnlCenter.GetView(0).SetLayoutAnimated(0, 0, 0, PnlCenter.Width, PnlCenter.Height)
-	'End If
 End Sub
 
 Sub SetTitle
@@ -99,10 +99,6 @@ End Sub
 
 Public Sub InitMenu
 	ClvMenuDrawer.Clear
-	Dim P1 As Page1
-	Dim P2 As Page2
-	P1.Initialize
-	P2.Initialize
 	ClvMenuDrawer.AddTextItem("Dashboard", Me)
 	ClvMenuDrawer.AddTextItem("Page1", P1)
 	ClvMenuDrawer.AddTextItem("Page2", P2)
@@ -127,7 +123,6 @@ Sub BtnMenu_Click
 		Case Else
 			Drawer.LeftOpen = Not(Drawer.LeftOpen)
 	End Select
-	'LoadPage(CurrentObject)
 End Sub
 
 Private Sub BtnExit_Click
@@ -222,7 +217,7 @@ Private Sub ModeStatic
 	PnlMini.Visible = False
 	PnlStatic.Visible = True
 	PnlCenter.Width = Root.Width - PnlStatic.Width
-	PnlCenter.Left = PnlStatic.Left + PnlStatic.Width	
+	PnlCenter.Left = PnlStatic.Left + PnlStatic.Width
 End Sub
 
 Private Sub ModeDrawer
